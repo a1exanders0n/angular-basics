@@ -1,0 +1,70 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  gap: 24px;
+}
+
+.convert,
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.convert {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.convert-from {
+  background-color: #8bc34a;
+}
+.convert-to {
+  background-color: #26c6da;
+}
+
+.convert_field {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.currency-sign {
+  font-weight: 700;
+}
+
+label {
+  font-size: 0.75rem;
+  color: #888888;
+}
+
+.currency-select {
+  padding: 0;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px 16px;
+  display: inline-block;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  &:focus-visible {
+    outline: none;
+    border-bottom: 1px solid #4b2bca;
+  }
+}
+
+.currency-select {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+h4 {
+  color: #fff;
+  margin: 0;
+}

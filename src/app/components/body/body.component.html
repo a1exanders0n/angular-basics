@@ -1,0 +1,52 @@
+<form>
+  <div class="wrapper">
+    <div class="convert convert-from">
+      <h4>Convert from</h4>
+      <div class="currency-select">
+        <label for="currency_convert-from">Currency: </label>
+        <div class="convert_field">
+          <p class="currency-sign">$</p>
+          <select id="currency_convert-from" name="currency_convert-from">
+            <option value="usd">USD</option>
+            <option value="eur">EUR</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="currency-select">
+        <label for="currency_amount">Amount: </label>
+        <div class="convert_field">
+          <p class="currency-sign">$</p>
+          <input type="text" id="currency_amount" name="currency_amount" />
+        </div>
+      </div>
+    </div>
+
+    <div class="convert convert-to">
+      <h4>Convert to</h4>
+      <div class="currency-select">
+        <label for="currency_convert-to">Currency: </label>
+        <div class="convert_field">
+          <p class="currency-sign">€</p>
+          <select id="currency_convert-to" name="currency_convert-to">
+            <option value="usd">USD</option>
+            <option value="eur">EUR</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="currency-select">
+        <label for="currency_result">Amount: </label>
+        <div class="convert_field">
+          <p class="currency-sign">€</p>
+          <input
+            type="text"
+            id="currency_result"
+            name="currency_result"
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

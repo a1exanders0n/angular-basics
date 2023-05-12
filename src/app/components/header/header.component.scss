@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.rates,
+.rate {
+  display: flex;
+}
+
+.rates {
+  justify-content: space-between;
+  align-items: center;
+  // width: 100%;
+  gap: 24px;
+}
+
+.rate {
+  gap: 8px;
+}
+
+.currency-price {
+  font-weight: 700;
+}
+
+h2 {
+  margin: 0;
+}
