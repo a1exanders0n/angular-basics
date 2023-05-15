@@ -1,52 +1,38 @@
-<form>
+<app-header [currencies]="currencies"></app-header>
+<form *ngIf="currencies.length !== 0">
   <div class="wrapper">
-    <div class="convert convert-from">
+    <div class="convert">
       <h4>Convert from</h4>
-      <div class="currency-select">
-        <label for="currency_convert-from">Currency: </label>
-        <div class="convert_field">
-          <p class="currency-sign">$</p>
-          <select id="currency_convert-from" name="currency_convert-from">
-            <option value="usd">USD</option>
-            <option value="eur">EUR</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="currency-select">
-        <label for="currency_amount">Amount: </label>
-        <div class="convert_field">
-          <p class="currency-sign">$</p>
-          <input type="text" id="currency_amount" name="currency_amount" />
-        </div>
-      </div>
+      <ng-container [ngTemplateOutlet]="convertForm"></ng-container>
     </div>
 
-    <div class="convert convert-to">
+    <div class="convert">
       <h4>Convert to</h4>
-      <div class="currency-select">
-        <label for="currency_convert-to">Currency: </label>
-        <div class="convert_field">
-          <p class="currency-sign">€</p>
-          <select id="currency_convert-to" name="currency_convert-to">
-            <option value="usd">USD</option>
-            <option value="eur">EUR</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="currency-select">
-        <label for="currency_result">Amount: </label>
-        <div class="convert_field">
-          <p class="currency-sign">€</p>
-          <input
-            type="text"
-            id="currency_result"
-            name="currency_result"
-            disabled
-          />
-        </div>
-      </div>
+      <ng-container [ngTemplateOutlet]="convertForm"></ng-container>
     </div>
   </div>
 </form>
+
+<ng-template #convertForm>
+  <div class="currency-select">
+    <label for="currency_convert-from">Currency: </label>
+    <div class="convert_field">
+      <select
+        id="currency_convert-from"
+        name="currency_convert-from"
+        (change)="onCurrencyChange($event)"
+      >
+        <option *ngFor="let currency of currencies">
+          {{ currency.txt | uppercase }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="currency-select">
+    <label for="currency_amount">Amount: </label>
+    <div class="convert_field">
+      <input type="text" id="currency_amount" name="currency_amount" />
+    </div>
+  </div>
+</ng-template>

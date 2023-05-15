@@ -7,10 +7,24 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { BodyComponent } from './components/body/body.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { CurrencyStylePipe } from './pipes/filter-currencies.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, BodyComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    BodyComponent,
+    CurrencyStylePipe,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
