@@ -10,6 +10,8 @@ import { Currency } from 'src/app/interfaces';
 export class BodyComponent implements OnInit {
   public currencies: Currency[] = [];
   public selectedCurrency!: string;
+  public amount: string =
+    (localStorage.getItem('amount') as string) || 'Enter amount';
 
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
@@ -32,9 +34,18 @@ export class BodyComponent implements OnInit {
         //   },
         // ];
       });
+    // this.amount = localStorage.getItem('amount') as string;
   }
 
   onCurrencyChange(event: any) {
     this.selectedCurrency = event.target.value;
+  }
+
+  changeText(event: any): void {
+    // console.log(event);
+    localStorage.setItem('amount', event.target.value);
+    if (event.target.value === '') {
+      localStorage.removeItem('amount');
+    }
   }
 }

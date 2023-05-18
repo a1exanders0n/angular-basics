@@ -1,4 +1,5 @@
-<app-header [currencies]="currencies"></app-header>
+<app-header [currencies]="currencies" [amount]="amount"></app-header>
+
 <form *ngIf="currencies.length !== 0">
   <div class="wrapper">
     <div class="convert">
@@ -32,7 +33,13 @@
   <div class="currency-select">
     <label for="currency_amount">Amount: </label>
     <div class="convert_field">
-      <input type="text" id="currency_amount" name="currency_amount" />
+      <input
+        type="text"
+        (input)="changeText($event)"
+        id="currency_amount"
+        name="currency_amount"
+        [(ngModel)]="amount"
+      />
     </div>
   </div>
 </ng-template>

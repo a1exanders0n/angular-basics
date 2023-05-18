@@ -8,5 +8,6 @@ import { Currency } from 'src/app/interfaces';
 })
 export class HeaderComponent {
   @Input() currencies!: Currency[];
+  @Input() amount!: string;
   constructor() {}
 }

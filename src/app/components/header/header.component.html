@@ -1,5 +1,6 @@
 <div class="wrapper">
   <h2>Currency Converter</h2>
+  <!-- <h1>{{ amount }}</h1> -->
 
   <div *ngIf="currencies.length > 2; else oneCurrency" class="rates">
     <ng-container *ngFor="let currency of currencies">
