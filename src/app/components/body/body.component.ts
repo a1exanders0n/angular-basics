@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Currency } from 'src/app/interfaces';
 
 @Component({
@@ -10,8 +11,19 @@ import { Currency } from 'src/app/interfaces';
 export class BodyComponent implements OnInit {
   public currencies: Currency[] = [];
   public selectedCurrency!: string;
-  public amount: string =
-    (localStorage.getItem('amount') as string) || 'Enter amount';
+
+  convertForm: FormGroup = new FormGroup({
+    convertFromSelect: new FormControl(),
+    convertFromInput: new FormControl(
+      localStorage.getItem('amount-from'),
+      Validators.pattern('\\-?\\d*\\.?\\d{1,2}')
+    ),
+    convertToSelect: new FormControl(),
+    convertToInput: new FormControl(
+      localStorage.getItem('amount-to'),
+      Validators.pattern('\\-?\\d*\\.?\\d{1,2}')
+    ),
+  });
 
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
@@ -34,6 +46,11 @@ export class BodyComponent implements OnInit {
         //   },
         // ];
       });
+
+    this.convertForm.controls['convertFromInput'].valueChanges.subscribe(
+      (val) => console.log(this.convertForm.controls['convertFromInput'])
+    );
+
     // this.amount = localStorage.getItem('amount') as string;
   }
 
@@ -41,11 +58,19 @@ export class BodyComponent implements OnInit {
     this.selectedCurrency = event.target.value;
   }
 
-  changeText(event: any): void {
+  changeAmountFrom(event: any): void {
     // console.log(event);
-    localStorage.setItem('amount', event.target.value);
+    localStorage.setItem('amount-from', event.target.value);
     if (event.target.value === '') {
-      localStorage.removeItem('amount');
+      localStorage.removeItem('amount-from');
+    }
+  }
+  changeAmountTo(event: any): void {
+    // console.log(event);
+    localStorage.setItem('amount-to', event.target.value);
+
+    if (event.target.value === '') {
+      localStorage.removeItem('amount-to');
     }
   }
 }

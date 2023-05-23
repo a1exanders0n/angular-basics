@@ -1,20 +1,89 @@
-<app-header [currencies]="currencies" [amount]="amount"></app-header>
+<app-header [currencies]="currencies"></app-header>
+<form [formGroup]="convertForm">
+  <div *ngIf="currencies.length !== 0">
+    <div class="wrapper">
+      <div class="convert convert-from">
+        <h4>Convert from</h4>
 
-<form *ngIf="currencies.length !== 0">
-  <div class="wrapper">
-    <div class="convert">
-      <h4>Convert from</h4>
-      <ng-container [ngTemplateOutlet]="convertForm"></ng-container>
-    </div>
+        <div class="currency-select">
+          <label for="currency_convert-from">Currency: </label>
+          <div class="convert_field">
+            <select
+              id="currency_convert-from"
+              formControlName="convertFromSelect"
+              (change)="onCurrencyChange($event)"
+            >
+              <option *ngFor="let currency of currencies">
+                {{ currency.txt | uppercase }}
+              </option>
+            </select>
+          </div>
+        </div>
 
-    <div class="convert">
-      <h4>Convert to</h4>
-      <ng-container [ngTemplateOutlet]="convertForm"></ng-container>
+        <div class="currency-select">
+          <label for="currency_amount">Amount: </label>
+          <div class="convert_field">
+            <input
+              type="text"
+              formControlName="convertFromInput"
+              (input)="changeAmountFrom($event)"
+              id="currency_amount"
+              name="currency_amount"
+              placeholder="Enter amount"
+            />
+            <ng-container
+              *ngIf="convertForm.controls['convertFromInput'].errors"
+              ><p class="error">Please enter numbers only</p></ng-container
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="convert convert-to">
+        <h4>Convert to</h4>
+
+        <div class="currency-select">
+          <label for="currency_convert-from">Currency: </label>
+          <div class="convert_field">
+            <select
+              id="currency_convert-from"
+              formControlName="convertToSelect"
+              name="currency_convert-from"
+              (change)="onCurrencyChange($event)"
+            >
+              <option *ngFor="let currency of currencies">
+                {{ currency.txt | uppercase }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="currency-select">
+          <label for="currency_convert-to">Amount: </label>
+          <div class="convert_field">
+            <input
+              type="text"
+              formControlName="convertToInput"
+              (input)="changeAmountTo($event)"
+              id="currency_convert-to"
+              name="currency_convert-to"
+              placeholder="Enter amount"
+            />
+            <ng-container *ngIf="convertForm.controls['convertToInput'].errors"
+              ><p ngClass="error">Please enter numbers only</p></ng-container
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>
 
-<ng-template #convertForm>
+<!-- <ng-template #error>
+  <p ngClass="error">Numbers only</p>
+</ng-template> -->
+
+<!-- <ng-template #convertForm>
   <div class="currency-select">
     <label for="currency_convert-from">Currency: </label>
     <div class="convert_field">
@@ -42,4 +111,4 @@
       />
     </div>
   </div>
-</ng-template>
+</ng-template> -->
