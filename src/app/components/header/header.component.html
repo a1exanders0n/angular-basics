@@ -1,7 +1,19 @@
 <div class="wrapper">
   <h2>Currency Converter</h2>
 
-  <div *ngIf="currencies.length > 2; else oneCurrency" class="rates">
+  <div class="rates">
+    <div class="rate rate-from">
+      <span [innerHTML]="selectedCurrencyFrom.cc | currencyStyle"> </span>
+      <span>{{ selectedCurrencyFrom.rate }}</span>
+    </div>
+
+    <div class="rate rate-to">
+      <span [innerHTML]="selectedCurrencyTo.cc | currencyStyle"> </span>
+      <span>{{ selectedCurrencyTo.rate }}</span>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="currencies.length > 2; else oneCurrency" class="rates">
     <ng-container *ngFor="let currency of currencies">
       <div class="rate">
         <span [innerHTML]="currency.cc | currencyStyle"> </span>
@@ -12,10 +24,10 @@
   <ng-container
     *ngIf="currencies.length === 0"
     [ngTemplateOutlet]="zeroCurrencies"
-  ></ng-container>
+  ></ng-container> -->
 </div>
 
-<ng-template #oneCurrency>
+<!-- <ng-template #oneCurrency>
   <div *ngIf="currencies.length === 1">
     <div class="rates">
       <div class="rate">
@@ -31,4 +43,4 @@
   <div class="rate zero_rates">
     <h4>Sorry, no currencies available</h4>
   </div>
-</ng-template>
+</ng-template> -->

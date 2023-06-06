@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { Currency } from 'src/app/interfaces';
 
 @Component({
@@ -10,67 +11,81 @@ import { Currency } from 'src/app/interfaces';
 })
 export class BodyComponent implements OnInit {
   public currencies: Currency[] = [];
-  public selectedCurrency!: string;
+  public selectedCurrencyFrom: Currency = {
+    cc: 'AUD',
+    exchangedate: '29.05.2023',
+    r030: 36,
+    rate: 23.9177,
+    txt: 'Австралійський долар',
+  };
+  public selectedCurrencyTo: Currency = {
+    cc: 'AUD',
+    exchangedate: '29.05.2023',
+    r030: 36,
+    rate: 23.9177,
+    txt: 'Австралійський долар',
+  };
 
   convertForm: FormGroup = new FormGroup({
     convertFromSelect: new FormControl(),
     convertFromInput: new FormControl(
-      localStorage.getItem('amount-from'),
-      Validators.pattern('\\-?\\d*\\.?\\d{1,2}')
+      '1',
+      Validators.pattern('\\-?\\d*\\.?\\d*')
     ),
     convertToSelect: new FormControl(),
     convertToInput: new FormControl(
-      localStorage.getItem('amount-to'),
-      Validators.pattern('\\-?\\d*\\.?\\d{1,2}')
+      '1',
+      Validators.pattern('\\-?\\d*\\.?\\d*')
     ),
   });
 
   constructor(private http: HttpClient) {}
+
   ngOnInit(): void {
     this.http
       .get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
       .subscribe((result: any) => {
         this.currencies = result;
-
-        // for zero currencies
-        // this.currencies = [];
-
-        // for 1 currency
-        // this.currencies = [
-        //   {
-        //     r030: 348,
-        //     txt: 'Форинт',
-        //     rate: 0.107719,
-        //     cc: 'HUF',
-        //     exchangedate: '16.05.2023',
-        //   },
-        // ];
       });
+  }
 
-    this.convertForm.controls['convertFromInput'].valueChanges.subscribe(
-      (val) => console.log(this.convertForm.controls['convertFromInput'])
+  onCurrencyChangeFrom(event: any) {
+    this.selectedCurrencyFrom = this.currencies.find(
+      (currency) =>
+        currency.txt.toLowerCase() === event.target.value.toLowerCase()
+    ) as Currency;
+    this.convertForm.controls['convertToInput'].setValue(
+      (this.convertForm.controls['convertFromInput'].value *
+        this.selectedCurrencyFrom.rate) /
+        this.selectedCurrencyTo.rate
     );
-
-    // this.amount = localStorage.getItem('amount') as string;
   }
 
-  onCurrencyChange(event: any) {
-    this.selectedCurrency = event.target.value;
+  onCurrencyChangeTo(event: any) {
+    this.selectedCurrencyTo = this.currencies.find(
+      (currency) =>
+        currency.txt.toLowerCase() === event.target.value.toLowerCase()
+    ) as Currency;
+    this.convertForm.controls['convertToInput'].setValue(
+      (this.convertForm.controls['convertFromInput'].value *
+        this.selectedCurrencyFrom.rate) /
+        this.selectedCurrencyTo.rate
+    );
   }
 
-  changeAmountFrom(event: any): void {
-    // console.log(event);
-    localStorage.setItem('amount-from', event.target.value);
-    if (event.target.value === '') {
-      localStorage.removeItem('amount-from');
-    }
+  onKeyUpFrom(event: any): void {
+    this.convertForm.controls['convertToInput'].setValue(
+      (this.convertForm.controls['convertFromInput'].value *
+        this.selectedCurrencyFrom.rate) /
+        this.selectedCurrencyTo.rate
+    );
   }
-  changeAmountTo(event: any): void {
-    // console.log(event);
-    localStorage.setItem('amount-to', event.target.value);
 
-    if (event.target.value === '') {
-      localStorage.removeItem('amount-to');
-    }
+  onKeyUpTo(event: any): void {
+    this.convertForm.controls['convertFromInput'].setValue(
+      (this.convertForm.controls['convertToInput'].value *
+        this.selectedCurrencyTo.rate) /
+        this.selectedCurrencyFrom.rate
+    );
   }
 }

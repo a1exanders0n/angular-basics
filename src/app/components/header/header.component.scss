@@ -8,30 +8,29 @@
 .rates,
 .rate {
   display: flex;
-}
-
-.rates,
-.zero_rates {
-  margin-top: 24px;
+  gap: 24px;
 }
 
 .rates {
-  padding: 8px 24px 0 24px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  height: 80px;
-  overflow-y: scroll;
-  // width: 200px;
-  border-radius: 8px;
-  background-color: #8bc34a;
-  color: #fff;
+  margin-top: 24px;
+  max-width: 100%;
 }
 
 .rate {
-  // margin-top: 24px;
-  gap: 8px;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  overflow-y: scroll;
+  border-radius: 8px;
+  color: #fff;
+  width: 328px;
+}
+.rate-from {
+  background-color: #8bc34a;
+}
+.rate-to {
+  background-color: #26c6da;
 }
 
 .currency-price {

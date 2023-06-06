@@ -1,4 +1,8 @@
-<app-header [currencies]="currencies"></app-header>
+<app-header
+  [currencies]="currencies"
+  [selectedCurrencyFrom]="selectedCurrencyFrom"
+  [selectedCurrencyTo]="selectedCurrencyTo"
+></app-header>
 <form [formGroup]="convertForm">
   <div *ngIf="currencies.length !== 0">
     <div class="wrapper">
@@ -7,11 +11,12 @@
 
         <div class="currency-select">
           <label for="currency_convert-from">Currency: </label>
+
           <div class="convert_field">
             <select
               id="currency_convert-from"
               formControlName="convertFromSelect"
-              (change)="onCurrencyChange($event)"
+              (change)="onCurrencyChangeFrom($event)"
             >
               <option *ngFor="let currency of currencies">
                 {{ currency.txt | uppercase }}
@@ -26,10 +31,10 @@
             <input
               type="text"
               formControlName="convertFromInput"
-              (input)="changeAmountFrom($event)"
               id="currency_amount"
               name="currency_amount"
               placeholder="Enter amount"
+              (keyup)="onKeyUpFrom($event)"
             />
             <ng-container
               *ngIf="convertForm.controls['convertFromInput'].errors"
@@ -49,7 +54,7 @@
               id="currency_convert-from"
               formControlName="convertToSelect"
               name="currency_convert-from"
-              (change)="onCurrencyChange($event)"
+              (change)="onCurrencyChangeTo($event)"
             >
               <option *ngFor="let currency of currencies">
                 {{ currency.txt | uppercase }}
@@ -64,10 +69,10 @@
             <input
               type="text"
               formControlName="convertToInput"
-              (input)="changeAmountTo($event)"
               id="currency_convert-to"
               name="currency_convert-to"
               placeholder="Enter amount"
+              (keyup)="onKeyUpTo($event)"
             />
             <ng-container *ngIf="convertForm.controls['convertToInput'].errors"
               ><p ngClass="error">Please enter numbers only</p></ng-container
