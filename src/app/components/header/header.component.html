@@ -12,35 +12,4 @@
       <span>{{ selectedCurrencyTo.rate }}</span>
     </div>
   </div>
-
-  <!-- <div *ngIf="currencies.length > 2; else oneCurrency" class="rates">
-    <ng-container *ngFor="let currency of currencies">
-      <div class="rate">
-        <span [innerHTML]="currency.cc | currencyStyle"> </span>
-        <span> {{ currency.rate }} </span>
-      </div>
-    </ng-container>
-  </div>
-  <ng-container
-    *ngIf="currencies.length === 0"
-    [ngTemplateOutlet]="zeroCurrencies"
-  ></ng-container> -->
 </div>
-
-<!-- <ng-template #oneCurrency>
-  <div *ngIf="currencies.length === 1">
-    <div class="rates">
-      <div class="rate">
-        <span>Одна валюта:</span>
-        <span [innerHTML]="currencies[0].txt | currencyStyle"> </span>
-        <span> {{ currencies[0].rate }} </span>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #zeroCurrencies>
-  <div class="rate zero_rates">
-    <h4>Sorry, no currencies available</h4>
-  </div>
-</ng-template> -->
